@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cisco.project.data.dao.postgres.PostgresDao">
+
+    <select id="queryClientList" resultType="com.cisco.project.data.entity.ClientEntity" parameterType="HashMap">
+        select id,mac,seen_string as seenString,seen_epoch as seenEpoch,lat,lng,unc,manufacturer,
+         os,ssid,floors,event_type as eventType,tags,ap
+         from clients_spe
+         where 1=1
+         <if test="param.mac !=null and param.mac.trim()!='' ">
+             and mac = #{param.mac,jdbcType=VARCHAR}
+         </if>
+        <if test="param.manufacture !=null and param.manufacture.trim()!='' ">
+            and manufacturer = #{param.manufacture,jdbcType=VARCHAR}
+        </if>
+
+        <if test="param.ap !=null and param.ap.trim()!='' ">
+            and ap = #{param.ap,jdbcType=VARCHAR}
+        </if>
+
+        <if test="param.startTime !=null and param.startTime.trim()!='' and param.endTime !=null and param.endTime.trim()!=''">
+            and seen_string between #{param.startTime,jdbcType=VARCHAR} and  #{param.endTime,jdbcType=VARCHAR}
+        </if>
+
+         order by id
+    </select>
+
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <settings>
+        <!--开启驼峰命名-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="jdbcTypeForNull" value="NULL"></setting>
+        <setting name="lazyLoadingEnabled" value="true"></setting>
+        <setting name="aggressiveLazyLoading" value="false"></setting>
+        <!--开启二级缓存-->
+        <setting name="cacheEnabled" value="true"></setting>
+    </settings>
+
+    <typeAliases>
+        <typeAlias type="java.lang.Integer" alias="Integer"></typeAlias>
+        <typeAlias type="java.lang.Long" alias="Long"></typeAlias>
+        <typeAlias type="java.util.HashMap" alias="HashMap"></typeAlias>
+        <typeAlias type="java.util.ArrayList" alias="ArrayList"></typeAlias>
+        <typeAlias type="java.lang.String" alias="String"></typeAlias>
+    </typeAliases>
+
+    <!-- 引入 pageHelper插件 -->
+    <!--注意这里要写成PageInterceptor, 5.0之前的版本都是写PageHelper, 5.0之后要换成PageInterceptor-->
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!--reasonable：分页合理化参数，默认值为false,直接根据参数进行查询。
+              当该参数设置为 true 时，pageNum<=0 时会查询第一页， pageNum>pages（超过总数时），会查询最后一页。-->
+            <!--<property name="reasonable" value="true"/>-->
+            <!-- 设置数据库类型-->
+            <property name="dialect" value="PostgreSQL"/>
+            <!-- 设置为true时，使用RowBounds分页会进行count查询 -->
+<!--            <property name="rowBoundsWithCount" value="true"/>-->
+        </plugin>
+    </plugins>
+
+</configuration>
