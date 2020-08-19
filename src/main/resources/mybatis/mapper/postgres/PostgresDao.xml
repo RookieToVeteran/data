@@ -23,7 +23,7 @@
             and seen_string between #{param.startTime,jdbcType=VARCHAR} and  #{param.endTime,jdbcType=VARCHAR}
         </if>
 
-         order by id
+         order by seenString  desc
     </select>
 
 </mapper>
